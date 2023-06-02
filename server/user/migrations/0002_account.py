@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('user', '0001_initial'),
-        ('type', '0002_seed_account_types'),
+        ('type', '0003_seed_account_types'),
     ]
 
     operations = [

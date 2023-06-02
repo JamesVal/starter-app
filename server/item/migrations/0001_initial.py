@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('user', '0003_seed_users'),
-        ('type', '0003_seed_item_types'),
+        ('type', '0004_seed_item_types'),
     ]
 
     operations = [
