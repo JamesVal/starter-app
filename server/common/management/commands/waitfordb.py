@@ -12,8 +12,9 @@ class Command(management.base.BaseCommand):
                 management.call_command('makemigrations')
                 management.call_command('migrate')
                 return
-            except:
-                time.sleep(10)
+            except Exception as e:
+                print("Sleeping...", e, flush=True)
+                time.sleep(3)
                 continue
 
         raise management.CommandError('Database not yet available!')
