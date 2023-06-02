@@ -7,8 +7,9 @@ from type.models import Type
 
 class Item(BaseModel):
     itemName = models.CharField(max_length=255, unique=True)
+    itemDescription = models.TextField(blank=True, null=True)
     type = models.ForeignKey(Type, on_delete=models.CASCADE, blank=True, null=True)
-    account = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, null=True, related_name="items")
+    owner = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, null=True, related_name="items")
 
     def __str__(self):
         return self.itemName

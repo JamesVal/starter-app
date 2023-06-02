@@ -12,7 +12,11 @@ def seed_account_types(apps, schema_editor):
         {
             "typeName": "CustomerAccount",
             "typeDescription": "Customer Account",
-        }
+        },
+        {
+            "typeName": "VendorAccount",
+            "typeDescription": "Vendor Account",
+        },
     ]
 
     for current_type in types_seed:
