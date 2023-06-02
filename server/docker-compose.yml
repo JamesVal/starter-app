@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     build: .
-    command: bash -c "python manage.py waitfordb && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py wait-for-db && python manage.py runserver 0.0.0.0:8000"
     env_file:
       - .env
     volumes:

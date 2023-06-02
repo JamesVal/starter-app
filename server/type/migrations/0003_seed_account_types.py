@@ -3,19 +3,25 @@ import os
 
 def seed_account_types(apps, schema_editor):
     Type = apps.get_model("type", "Type")
+    TypeCategory = apps.get_model("type", "TypeCategory")
+
+    type_category = TypeCategory.objects.get(categoryName="AccountType")
 
     types_seed = [
         {
             "typeName": "AdminAccount",
             "typeDescription": "Admin Account",
+            "category": type_category
         },
         {
             "typeName": "CustomerAccount",
             "typeDescription": "Customer Account",
+            "category": type_category
         },
         {
             "typeName": "VendorAccount",
             "typeDescription": "Vendor Account",
+            "category": type_category
         },
     ]
 
@@ -26,7 +32,7 @@ def seed_account_types(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('type', '0001_initial'),
+        ('type', '0002_seed_type_categories'),
     ]
 
     operations = [
