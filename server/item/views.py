@@ -6,14 +6,14 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from common.permissions import CommonPermission
 from comment.models import Comment
+from user.models import Account
 
 class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all()
+    queryset = Item.objects.prefetch_related(
+      Prefetch('owner', queryset=Account.objects.all()),
+      Prefetch('comments', queryset=Comment.objects.order_by('-created_at')),
+      Prefetch('comments__owner', queryset=Account.objects.all()),
+    )
     serializer_class = ItemSerializer
     authentication_classes = [JWTAuthentication, SessionAuthentication, BasicAuthentication]
     permission_classes = [CommonPermission]
-
-    def get_queryset(self):
-        prefetch_related_models = Prefetch('comments', queryset=Comment.objects.order_by('-created_at'))
-        queryset = Item.objects.prefetch_related(prefetch_related_models)
-        return queryset
