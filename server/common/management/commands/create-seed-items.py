@@ -30,7 +30,14 @@ class Command(management.base.BaseCommand):
 
                     for item_index in range(num_items):
                         item_types = Type.objects.filter(category__categoryName="ItemType")
-                        item = Item.objects.create(itemName=f'{account.accountName} - Test Item {item_index}', itemDescription=f'{account.accountName} - Test Item {item_index} Description', owner=account, type=random.choice(item_types))
+                        item = Item.objects.create(
+                            itemName=f'{account.accountName} - Test Item {item_index}',
+                            itemDescription=f'{account.accountName} - Test Item {item_index} Description',
+                            owner=account,
+                            type=random.choice(item_types),
+                            created_at=time.time(),
+                            updated_at=time.time()
+                        )
                         item.save()
 
             except Exception as e:
