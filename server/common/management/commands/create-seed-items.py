@@ -35,8 +35,6 @@ class Command(management.base.BaseCommand):
                             itemDescription=f'{account.accountName} - Test Item {item_index} Description',
                             owner=account,
                             type=random.choice(item_types),
-                            created_at=time.time(),
-                            updated_at=time.time()
                         )
                         item.save()
 
