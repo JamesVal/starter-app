@@ -4,7 +4,7 @@ from .models import Item
 class ItemAdmin(admin.ModelAdmin):
     fieldsets = (
         (
-            "Type Details",
+            "Item Details",
             {"fields": ["itemName", "itemDescription"]},
         ),
     )
