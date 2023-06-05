@@ -17,16 +17,14 @@ from django.urls import include, re_path, path
 from django.contrib import admin
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.routers import DefaultRouter
-from item.views import ItemViewSet
-from comment.views import CommentViewSet
 
 router = DefaultRouter()
-router.register(r'items', ItemViewSet, basename='items')
-router.register(r'comments', CommentViewSet, basename='comments')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('api/', include('item.urls')),
+    path('api/', include('comment.urls')),
+    path('api/', include('user.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

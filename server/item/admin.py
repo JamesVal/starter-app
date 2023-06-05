@@ -5,13 +5,14 @@ class ItemAdmin(admin.ModelAdmin):
     fieldsets = (
         (
             "Item Details",
-            {"fields": ["itemName", "itemDescription"]},
+            {"fields": ["itemName", "itemDescription", "owner"]},
         ),
     )
     list_display = (
         "id",
         "itemName",
         "itemDescription",
+        "owner",
     )
 
 
