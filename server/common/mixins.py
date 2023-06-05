@@ -16,3 +16,12 @@ class RequiredFieldsMixin:
         data = super().validate(data)
         data = self.validate_required_fields(data)
         return data
+
+class SaveOwnerAccountMixin:
+
+    def create(self, validated_data):
+        validated_data['owner'] = self.context['request'].selected_account
+        return super().create(validated_data)
+
+class CombinedMixin(RequiredFieldsMixin, SaveOwnerAccountMixin):
+    pass

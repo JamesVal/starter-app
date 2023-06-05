@@ -15,3 +15,10 @@ class Account(BaseModel):
 
     def __str__(self):
         return self.accountName
+
+class UserSelectedAccount(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="selectedAccount")
+    selected_account = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username + " - " + self.selected_account.accountName
