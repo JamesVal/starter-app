@@ -1,19 +1,21 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import TextInput from '../../components/text-input';
-import { AuthContext } from '../../contexts/AuthContext';
+import { login } from '../../redux/slices/auth-slice';
 
 export default function Login() {
-  const { state, login } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const dataReady = useSelector((state) => state.auth.dataReady);
   const [formState, setFormState] = useState({
     username: '',
     password: '',
   });
 
   useEffect(() => {
-    if (state.dataReady) {
+    if (dataReady) {
       console.log("DATA_READY");
     }
-  }, [state.dataReady])
+  }, [dataReady])
 
   const updateUsername = (value) => {
     setFormState((prevState) => ({
@@ -30,7 +32,7 @@ export default function Login() {
   }
 
   const handleLoginClick = (event) => {
-    login({ username: formState.username, password: formState.password });
+    dispatch(login(formState.username, formState.password));
   }
 
   return(
