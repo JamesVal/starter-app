@@ -1,12 +1,13 @@
 // pages/_app.js
 import React from 'react';
-import { AuthProvider } from '../contexts/AuthContext';
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 
 function CustomApp({ Component, pageProps, router }) {
   return (
-    <AuthProvider>
+    <Provider store={store}>
       <Component {...pageProps} />
-    </AuthProvider>
+    </Provider>
   );
 }
 
