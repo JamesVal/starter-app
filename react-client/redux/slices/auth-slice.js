@@ -14,28 +14,38 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     pending(state, action) {
-      state.isLoading = true;
+      return {
+        ...state,
+        isLoading: true
+      }
     },
     success(state, action) {
-      state.isLoading = false;
-      state.dataReady = true;
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-      state.error = null;
+      return {
+        ...state,
+        isLoading: false,
+        dataReady: true,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken
+      }
     },
     failed(state, action) {
-      state.isLoading = false;
-      state.error = action.payload;  
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
+      }
     },
     logout(state, action)  {
-      state.accessToken = "";
-      state.refreshToken = "";
+      return {
+        ...state,
+        accessToken: "",
+        refreshToken: "",
+      }
     }
   },
 })
 
-export const { pending, success, failed } = authSlice.actions;
-export default authSlice.reducer;
+const { pending, success, failed } = authSlice.actions;
 
 export const login = (username, password) => async (dispatch) => {
   dispatch(pending());
@@ -50,8 +60,19 @@ export const login = (username, password) => async (dispatch) => {
 
   if (response.ok) {
     const resp = await response.json();
+
+    localStorage.setItem("token", resp.access);
+    localStorage.setItem("refresh_token", resp.refresh);
     dispatch(success(resp));
   } else {
     dispatch(failed("Login Failed"));
   }
 }
+
+export const logout = () => async (dispatch) => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("refresh_token");
+  dispatch(logout());
+}
+
+export default authSlice.reducer;
