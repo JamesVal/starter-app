@@ -9,11 +9,9 @@ export default function Loader() {
     return (loadingAuth || loadingItems);
   }
 
-  const content = getShowLoading() ? <div>Loading...</div> : null;
-
   return(
     <>
-      {content}
+      {getShowLoading() && <div>Loading...</div>}
     </>
   );
 }
