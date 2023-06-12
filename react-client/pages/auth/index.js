@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import TextInput from '../../components/text-input';
 import { login } from '../../redux/slices/auth-slice';
 
 export default function Login() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const dataReady = useSelector((state) => state.auth.dataReady);
   const [formState, setFormState] = useState({
     username: '',
@@ -13,7 +15,7 @@ export default function Login() {
 
   useEffect(() => {
     if (dataReady) {
-      console.log("DATA_READY");
+      router.push('/items');
     }
   }, [dataReady])
 
