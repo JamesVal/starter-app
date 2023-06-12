@@ -29,7 +29,7 @@ class JWTAccountMiddleware:
         except jwt.DecodeError:
             response = JsonResponse({'message': 'Invalid token'}, status=400)
         except jwt.ExpiredSignatureError:
-            response = JsonResponse({'message': 'Token expired'}, status=400)
+            response = JsonResponse({'message': 'Token expired'}, status=401)
         except User.DoesNotExist:
             response = JsonResponse({'message': 'User not found'}, status=400)
         except UserSelectedAccount.DoesNotExist:

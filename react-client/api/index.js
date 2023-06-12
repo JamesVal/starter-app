@@ -8,8 +8,6 @@ export const fetchWithBearer = async (url, options = {}) => {
       'Authorization': `Bearer ${token}`
   }});
 
-  console.log("TEST", response);
-
   if (response.status === 401) {
     const resp = await response.json();
 
