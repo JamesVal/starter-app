@@ -8,6 +8,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
   const dataReady = useSelector((state) => state.auth.dataReady);
+  const availableAccounts = useSelector((state) => state.auth.availableAccounts);
   const [formState, setFormState] = useState({
     username: '',
     password: '',
@@ -15,7 +16,9 @@ export default function Login() {
 
   useEffect(() => {
     if (dataReady) {
-      router.push('/items');
+      console.log("availableAccounts", availableAccounts);
+      router.push('/auth/account-select');
+      // router.push('/items');
     }
   }, [dataReady])
 
