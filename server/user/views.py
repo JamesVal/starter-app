@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .models import Account, UserSelectedAccount
+from .serializers import AccountSerializer
 
 @api_view(['POST'])
 def select_account(request):
@@ -23,3 +24,18 @@ def select_account(request):
         UserSelectedAccount.objects.create(user=user, account=account)
 
     return Response({'success': 'Account selected'})
+
+@api_view(['GET'])
+def get_user_accounts(request):
+    user = request.user
+
+    try:
+        queryset = Account.objects.filter(user=user)
+    except Account.DoesNotExist:
+        return Response({'error': 'Account not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    print("ACCOUNTS", queryset)
+
+    serializer = AccountSerializer(queryset, many=True)
+
+    return Response(serializer.data)

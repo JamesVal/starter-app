@@ -6,7 +6,7 @@ from user.models import User, UserSelectedAccount
 class JWTAccountMiddleware:
     WHITELIST_API_PATHS = [
         '/api/token/',
-        '/api/users/select_account/',
+        '/api/token/refresh/',
     ]
 
     def __init__(self, get_response):
